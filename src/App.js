@@ -10,7 +10,7 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route path="/cv1" element={<Cv1/>}></Route>
+        <Route path="/" element={<Cv1/>}></Route>
       </Routes>
     </BrowserRouter>
     {/* <BasicPagination/>

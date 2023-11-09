@@ -202,7 +202,7 @@ export default function Cv1() {
                             <div class="form-step blanck-form " >links</div>
                         
     
-                        <div className={formStep ? 'drag-drop form-step' : 'drag-drop'}></div>
+                        <div className={formStep ? 'drag-drop ' : 'drag-drop'}></div>
      </div>
                        
                        
