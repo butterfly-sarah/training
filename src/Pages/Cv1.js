@@ -33,7 +33,7 @@ export default function Cv1() {
             setAddClassNext(false)
             setDownloadCv(false)
         }
-    if ((formstepnum + 1) == 1) {
+    if ((formstepnum) == 1) {
         setFormStep(false)
         }
     }
