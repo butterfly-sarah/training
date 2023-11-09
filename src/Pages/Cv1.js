@@ -12,17 +12,15 @@ export default function Cv1() {
     var nextBtn=useRef(null)
     var previusBtn=useRef(null)
     var [formstepnum,setFormstepnum]=useState(0)
-    var [formStep,setFormStep]=useState(true)
+    var [formStep,setFormStep]=useState(false)
     var [addClassNext,setAddClassNext]=useState(false)
     var [downloadCv,setDownloadCv]=useState(false)
     
     const handleNext=()=>{
         container[0].scrollLeft += 150;
         setFormstepnum(formstepnum+1)
-        updateFormSteps();
-        updateStepper();
         setFormStep(true)
-        if ((formstepnum + 1) == progressSteps.length){
+        if ((formstepnum +1) == progressSteps.length-1){
             setAddClassNext(true)
             setDownloadCv(true)
         }
@@ -31,8 +29,6 @@ export default function Cv1() {
     const handlePrev=()=>{
         container[0].scrollLeft -= 150;
         setFormstepnum(formstepnum-1)
-        updateFormSteps();
-        updateStepper();
         if ((formstepnum + 1) > 1) {
             setAddClassNext(false)
             setDownloadCv(false)
@@ -41,15 +37,18 @@ export default function Cv1() {
         setFormStep(false)
         }
     }
-    const updateFormSteps=()=>{
+    useEffect(() => {
+        var formSteps = document.getElementsByClassName("form-step")
+        var formStepss = Array.from(document.getElementsByClassName("form-step"))
         formStepss.forEach((formstep)=>{
             formstep.classList.contains("form-step-active") &&
             formstep.classList.remove("form-step-active")
         });
         formSteps[formstepnum].classList.add("form-step-active")
-    }
+      }, [formstepnum]);
     
-    const updateStepper=()=>{
+    
+    useEffect(() => {
         progressSteps.forEach((progressStep,idx)=>{
             if(idx < formstepnum +1){
                 progressStep.classList.add('progress-step-active');
@@ -59,8 +58,7 @@ export default function Cv1() {
     
             }
         })
-    }
-    // updateFormSteps();
+      }, [formstepnum]);
   return (
   <>
         {/* <!-- header --> */}
@@ -204,7 +202,7 @@ export default function Cv1() {
                             <div class="form-step blanck-form " >links</div>
                         
     
-                        <div className={formStep ? 'drag-drop' : ''}></div>
+                        <div className={formStep ? 'drag-drop form-step' : 'drag-drop'}></div>
      </div>
                        
                        
