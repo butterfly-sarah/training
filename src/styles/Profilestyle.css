@@ -1,0 +1,125 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --section-color:#eff7fa;
+    --dark-color: rgba(0, 0, 0, .4);;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: 'Jost',sans-serif;
+    background-color: var(--dark-color);
+    width: 100vw;
+    background-image: url(../assets/secondary_background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+}
+.profileoverlay{
+    background-color: rgba(29,29,29,.9);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+.pen{
+    display: block;
+    margin-left: 95px;
+    font-size: large;
+    background:none;
+    border: none;
+}
+
+
+.resume1 ,.profiledata{
+    background-color: var(--dark-color);
+    width: 90%;
+    margin: auto;
+    border-radius: 15px;
+}
+.edit{
+    background-color: #bf9b30;
+    color: #FFE;
+    
+}
+.profiledata .profilefirst{
+    background-color: var(--dark-color);
+    padding: 25px;
+    border-radius: 15px;
+}
+.profiledata h4{
+    color: white;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    border-radius: 5px;
+    padding: 15px 25px;
+    font-size: large;
+    margin: 25px 0px;
+}
+.profiledata .inputlabel,.inputlabel2{
+    display: inline-block;
+    width: 45%;
+}
+
+.profiledata .profileinput,.profileinput2,.profileinput3{
+    color: #fff;
+    display: inline-block;
+    width: 55%;
+    padding: 5px 10px;
+    background-color: rgba(83, 83, 83, 0.4);
+    border: none;
+    border-radius: 5px;
+}
+.profileinput3{
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    height: max-content;
+}
+
+.profiledata .inputlabel2,.profileinput2,.inputlabel4{
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.inputlabel4{
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    margin-left: 25px;
+    height: max-content;
+}
+.profiledata .profileemail{
+    margin-right: 10px;
+    font-size: larger;
+}
+.profiledata .instructor{
+    color: #bf9b30;
+    font-size:medium;
+}
+.profiledata .largetext{
+    font-size: larger;
+}
+.profiledata h3{
+    font-size: 25px;
+    font-weight: 700;
+    color: white;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.profiledata .disabled{
+    background: none;
+    border: none;
+    color: gray;
+}
+.resume1 .none{
+    display: none;
+}
+

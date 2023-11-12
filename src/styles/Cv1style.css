@@ -20,7 +20,6 @@
     position: relative;
     padding-bottom: 400px;
 
-
 }
 .overlay{
     background-color: rgba(29,29,29,.9);
@@ -29,7 +28,6 @@
     position: absolute;
     top: 0;
     width: 100%;
-
 }
 .second-nav{
     position: relative;
@@ -234,5 +232,4 @@ padding: 20px 0px;
                 }
                 
         }
-
 
