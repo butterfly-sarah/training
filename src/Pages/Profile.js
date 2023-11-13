@@ -38,12 +38,13 @@ export default function Profile() {
         console.log(newData);
       }, [newData]); 
     return(
+        <><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1"/>
     <div className='profilebody pt-5'>
     <div class="profileoverlay"></div>
-    <div class="resume1">
+    <div class="resume1 position-relative">
     
-        <div class="row gx-0 p-5">
-            <span class="col-2">
+        <div class="row gx-0 p-5 gy-3">
+            <span class="col-sm-1 col-md-1 position-relative">
                 <img src={(image && URL.createObjectURL(image))}  class="rounded-circle bg-white"
                 alt="" width="100" height="100" />
                 <button className={editMode?"pen":"none"} onClick={imageUpload}>
@@ -51,19 +52,18 @@ export default function Profile() {
                 </button>
                 <input onChange={imageDisplay} type='file' ref={imageInput}  style={{display:"none"}}/>
             </span>
-            <span class="col-8">
+            <span class="col-sm-12 col-md-11">
                 <h5 class="text-white" >Balqees Hamdi Sabir</h5>
                 <span class="text-white"  >Computer science,international islamic university</span>
             </span>
-            <span class="col-2">
                 <button class=" btn" type="button">
                 <a href="#" class="text-white btn text-uppercase edit" onClick={handleClick}>{editMode?"Save Changes":"Edit Profile"}</a></button>
-            </span>
+            
         </div>  
     </div>
-    <div className='profiledata mt-5'>
-    <div class="row gx-5 p-5">
-            <div class="col-3 profilefirst">
+    <div className='profiledata mt-5 position-relative'>
+    <div class="row gy-2 gx-5 gy-md-0 p-5">
+            <div class="col-sm-12 col-md-3 profilefirst">
                 <form>
                     <h4>Personal Info</h4>
                     <p class="text-white inputlabel">Student ID</p>
@@ -94,7 +94,7 @@ export default function Profile() {
                     <input type="tel" id="Mobil Number" name="Mobil Number" defaultValue={mobile} onChange={(e) => setMobile(e.target.value)} class={editMode?" profileinput2":" profileinput2 disabled"} disabled={!editMode}/>
                 </form>
             </div>
-            <div class="col-9">
+            <div class="col-sm-12 col-md-9">
             <div class="About profilefirst">
                 <p class="text-white inputlabel">About</p>
                 <textarea cols={10} class={editMode?" profileinput2":" profileinput2 disabled"} defaultValue={about} onChange={(e) => setAbout(e.target.value)} disabled={!editMode}/>
@@ -117,6 +117,6 @@ export default function Profile() {
         </div>        
     </div>
     </div>
-    
+    </>
     )
 }
