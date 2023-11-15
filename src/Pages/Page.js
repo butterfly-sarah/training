@@ -9,5 +9,7 @@ export default function Page() {
         <Link to="/cv1">FIRST PAGE CV</Link>
         <br/>
         <Link to="/profile">SECOND PAGE PROFILE</Link>
+        <br/>
+        <Link to="/jobs">third PAGE jobs</Link>
     </div>)
 }

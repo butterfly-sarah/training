@@ -7,6 +7,7 @@ import React from 'react';
 import Cv1 from './Pages/Cv1'
 import Profile from './Pages/Profile';
 import Page from './Pages/Page';
+import Jobs from './Pages/Jobs';
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Page/>}></Route>
         <Route path="/cv1" element={<Cv1/>}></Route>
         <Route path="/profile" element={<Profile/>}></Route>
+        <Route path="/jobs" element={<Jobs/>}></Route>
       </Routes>
     </BrowserRouter>
     
