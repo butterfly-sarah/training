@@ -229,7 +229,7 @@ return(
             <div class="pl-3 flex-grow-1">
             { !details&&
             jobData.map((job,index)=>(
-              <div class="div1 m-3"> 
+              <div class="div1 m-md-3"> 
                 <div class="dd-info row">
                 <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
                 <div className="col-md-8 col-sm-12 p-0">
@@ -254,7 +254,7 @@ return(
               </div>
                 ))}
             { details&&!form&&
-                <div class="div1 m-3"> 
+                <div class="div1 m-md-3"> 
                 <div class="dd-info row">
                 <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
                 <div className="col-md-8 col-sm-12 p-0">
