@@ -607,6 +607,9 @@
     .info2 h5 {
         display: inline-block;
     }
+    .dd-info h2 {
+        line-height: normal;
+    }
     #pi{
         display: inline-block;
         margin-left: 15px;
