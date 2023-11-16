@@ -569,6 +569,7 @@
         width: 100%;
         background-color: #000000;
         padding: 30px 0px;
+        z-index: 1;
     }
     .job-filter{
         width: 100%;

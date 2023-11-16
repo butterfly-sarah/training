@@ -284,7 +284,7 @@ return(
               </div>
                 }
                 { form&&
-                <div class="view-details3 div1 m-0">
+                <div class="view-details3 div1 m-md-3">
                   <div class="dd-info row">
                 <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
                 <div className="col-md-8 col-sm-12 p-0">
