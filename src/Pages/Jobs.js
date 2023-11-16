@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import 'bootstrap/dist/css/bootstrap.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock, faCloudArrowUp, faFilter, faLocationDot, faMagnifyingGlass, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronRight, faClock, faCloudArrowUp, faFilter, faLocationDot, faMagnifyingGlass, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
 import '../styles/Jobsstyle.css'
+import Pagination from "react-js-pagination";
 import { fontSize } from "@mui/system";
 import { Visibility } from "@mui/icons-material";
 export default function Jobs(){
@@ -120,7 +121,23 @@ export default function Jobs(){
             }
             data=arr
         }
-        jobData=data
+const [currentPage, setCurrentPage] = useState(1); 
+const [recordsPerPage] = useState(2);
+const indexOfLastRecord = currentPage * recordsPerPage;
+const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+const currentRecords = data.slice(indexOfFirstRecord, 
+  indexOfLastRecord);
+  const nPages = Math.ceil(data.length / recordsPerPage)
+  const pageNumbers = [...Array(nPages + 1).keys()].slice(1)
+  const nextPage = () => {
+    if(currentPage !== nPages) 
+        setCurrentPage(currentPage + 1)
+}
+const prevPage = () => {
+    if(currentPage !== 1) 
+        setCurrentPage(currentPage - 1)
+}
+        jobData=currentRecords
 return(
     <><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1"/>
     <div className="body">
@@ -228,6 +245,7 @@ return(
             
             <div class="pl-3 flex-grow-1">
             { !details&&
+            <div>{
             jobData.map((job,index)=>(
               <div class="div1 m-md-3"> 
                 <div class="dd-info row">
@@ -253,6 +271,40 @@ return(
               </div>
               </div>
                 ))}
+                <nav>
+<ul className='pagination justify-content-end'>
+<li className="arrow">
+<a className="arrow"
+onClick={prevPage}
+href="#">
+
+<FontAwesomeIcon icon={faChevronLeft} />
+</a>
+</li>
+{pageNumbers.map(pgNumber => (
+<li key={pgNumber}
+className= {`page-itm ${currentPage == pgNumber ? 'actve' : ''} `} >
+
+<a onClick={() => setCurrentPage(pgNumber)}
+className= {`page-itm ${currentPage == pgNumber ? 'actve' : ''} `}
+href='#'>
+
+{pgNumber}
+</a>
+</li>
+))}
+<li className="arrow me-3">
+<a className="arrow"
+onClick={nextPage}
+href='#'>
+
+<FontAwesomeIcon icon={faChevronRight} />
+</a>
+</li>
+</ul>
+</nav>
+                </div>
+                }
             { details&&!form&&
                 <div class="div1 m-md-3"> 
                 <div class="dd-info row">

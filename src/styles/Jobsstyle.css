@@ -552,6 +552,14 @@
 .dd-info h2{
   line-height: 0.5em;
 }
+.page-itm{
+    color: white;
+    text-decoration: none;
+    margin: 0px 5px;
+}
+.actve,.arrow{
+    color: var(--primary);
+}
  /****************** media query page32*************************/
  @media(max-width:576px )
 {
