@@ -316,8 +316,9 @@ return(
                        PNG,GIF,MP4,PDF,PSD,Al,Word,PPT
                       </h6>
                       { dragActive && <div style={{position:"absolute",top:"0",left:"0",height:"100%",width:"100%"}} onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div> }
-                      {file&&<p>{file.name}</p>}
+                      
                       </div>
+                      {file&&<p>{file.name}</p>}
                       
                     </div>
                     <div className="col-12 mt-5 d-flex justify-content-end">
