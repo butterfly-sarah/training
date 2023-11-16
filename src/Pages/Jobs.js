@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { FileUploader } from "react-drag-drop-files";
 import 'bootstrap/dist/css/bootstrap.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock, faCloudArrowUp, faLocationDot, faMagnifyingGlass, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
 import '../styles/Jobsstyle.css'
+import { fontSize } from "@mui/system";
+import { Visibility } from "@mui/icons-material";
 export default function Jobs(){
     const jobs = [
         {id:1, title: 'Front-end React JS Developer', location: 'New York', jobType: 'Full-time', jobLevel: 'Entry-level', salary: 5000 ,data:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",about:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",req:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." },
@@ -18,8 +23,40 @@ export default function Jobs(){
       var [salaryRange,setSalaryRange]=useState([]);
       var [details,setDetails]=useState(false);
       var [form,setForm]=useState(false);
+      var [search,setSearch]=useState("");
+      var [clicked,setClicked]=useState(false);
+      var [file,setFile]=useState(null);
       var [currentJob,setCurrentJob]=useState({});
       var selectRef=useRef(null)
+      const inputRef = React.useRef(null);
+      const [dragActive, setDragActive] = React.useState(false);
+      const handleDrag = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.type === "dragenter" || e.type === "dragover") {
+          setDragActive(true);
+        } else if (e.type === "dragleave") {
+          setDragActive(false);
+        }
+      };
+      
+      const handleDrop = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          setFile(e.dataTransfer.files[0]);
+        }
+      };
+      const handleChange = function(e) {
+        e.preventDefault();
+        if (e.target.files && e.target.files[0]) {
+          setFile(e.target.files[0])
+        }
+      };
+      const onButtonClick = () => {
+        inputRef.current.click();
+      };
       var handleClear=()=>{
         const checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
         checkboxes.forEach(checkbox => checkbox.checked = false); 
@@ -35,6 +72,9 @@ export default function Jobs(){
         setCurrentJob(job)
       }
       var data=jobData
+      if(search&&clicked){
+        data=data.filter((el)=>el?.title?.includes(search))
+      }
       if(location){
         data=data.filter((el)=>el?.location?.includes(location))
       }
@@ -81,6 +121,7 @@ export default function Jobs(){
         }
         jobData=data
 return(
+    <><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1"/>
     <div className="body">
       <div className="joboverlay"></div>
       <div className="position-relative">
@@ -89,16 +130,32 @@ return(
         <div class="container"></div>
       </nav>
       <div class="container">
-      <div class="date bg-black mt-5 mb-4"></div>
+      <div class="date  mt-5 mb-4">
+      <div class="info-header">
+        <p>Jobs</p>
+        <span></span>
+        <p>5th Nov 2023</p>
+      </div>
+      </div>
     </div>
     <div class="d-flex flex-row container mb-5 justify-content-between ">
-      <div class="jobLooking bg-black"></div>
-      <div class="searchBox flex-end bg-black"></div>
+      <div class="jobLooking ">
+        <h1>Looking for a job ?</h1>
+        <p>Here you can find your best match between 1000s of updated and available positions</p>
+      </div>
+      <div class="searchBox flex-end">
+        <span className="position-relative">
+            <FontAwesomeIcon className="icon position-absolute" icon={faMagnifyingGlass} />
+          <input placeholder="Search for a job" onChange={(e)=>{setSearch(e.target.value);setClicked(false)}}></input>
+          <button type="button" onClick={()=>setClicked(true)}>SEARCH</button>
+        </span>
+      </div>
     </div>
        
             
         <div class="container filter-side d-flex bd-highlight ">
           <div>
+            {/* //className="position-absolute" */}
             <aside class="job-filter pb-5">
               <div class="filter-head d-flex bg-black p-2 align-items-baseline rounded">
               <h2 class="text-white mr-5 fs-5">Filters</h2>
@@ -169,89 +226,106 @@ return(
             { !details&&
             jobData.map((job,index)=>(
               <div class="div1 m-3"> 
-                <div class="dd-info">
-                <span class="spn">IT</span>
+                <div class="dd-info row">
+                <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
+                <div className="col-8 p-0">
                 <h2>{job.title}</h2>
                 <p>IT solution , {job.location}</p>
+                </div>
+                <div class="info2 col-3 p-0 text-end"><h5>{job.salary} per month</h5>
+                <p class="pi"> <FontAwesomeIcon icon={faLocationDot} style={{color: "#bf9b30"}} /> On Site</p>
+                </div>
               </div>
-              <div class="info2"><h5>{job.salary} per month</h5>
-                <p class="pi"> <i class="loc fas fa-map-marker-alt"></i> On Site</p>
-              </div>
+              
                 <p class="p-general">{job.data}</p>
                 <button class="btn">React JS</button>
                 <button class="btn">Develpment</button>
 
-              <div class="view-details">
-                <p class="p-details"><i class=" clock far fa-clock"></i>  2 h ago</p>
+              <div class="view-details row d-flex m-0 mt-5  p-0">
+                <div class=" col-6"><p class="p-details "><FontAwesomeIcon icon={faClock} style={{color:"grey"}}/>  2 h ago</p></div>
+                <div className="col-6 d-flex justify-content-end">
                 <button class="btn-details" onClick={()=>handleDetails(job.id)}>VIEW DETAiLS</button>
+                </div>
               </div>
               </div>
-                // <div>
-                //     <h3>${job.title}</h3>
-                //     <p>Location: {job.location}</p>
-                //     <p>Job Type: {job.jobType}</p>
-                //     <p>Job Level: {job.jobLevel}</p>
-                //     <p>Salary: ${job.salary}</p>
-                //     <button onClick={()=>handleDetails(job.id)}>details</button>
-                // </div>
                 ))}
             { details&&!form&&
                 <div class="div1 m-3"> 
-                <div class="dd-info">
-                <span class="spn">IT</span>
+                <div class="dd-info row">
+                <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
+                <div className="col-8 p-0">
                 <h2>{currentJob.title}</h2>
                 <p>IT solution , {currentJob.location}</p>
+                </div>
+                <div class="info2 col-3 p-0 text-end"><h5>{currentJob.salary} per month</h5>
+                <p class="pi"> <FontAwesomeIcon icon={faLocationDot} style={{color: "#bf9b30"}} /> On Site</p>
+                </div>
               </div>
-              <div class="info2"><h5>{currentJob.salary} per month</h5>
-                <p class="pi"> <i class="loc fas fa-map-marker-alt"></i> On Site</p>
-              </div>
+              
                 <p class="p-general">{currentJob.data}</p>
                 <button class="btn">React JS</button>
                 <button class="btn">Develpment</button>
-
-              <div class="view-details">
-                <p class="p-details"><i class=" clock far fa-clock"></i>  2 h ago</p>
-                <h2 className="d-block">About us</h2>
-                <p class="p-details2">
-                  {currentJob.about}
-                </p>
+                <h2>About us</h2>
+                <p class="p-general">{currentJob.about}</p>
                 <h2>Job Description</h2>
-                <p class="p-details2">
-                  {currentJob.desc}
-                </p>
-                <h2>Job Requirements</h2>
-                <p class="p-details2">
-                  {currentJob.req}
-                </p>
-                <button class="btn-details" onClick={()=>setForm(true)}>Apply</button>
+                <p class="p-general">{currentJob.desc}</p>
+                <h2>Job Requirments</h2>
+                <p class="p-general">{currentJob.req}</p>
+              <div class="view-details row d-flex m-0 mt-5  p-0">
+                <div class=" col-6"><p class="p-details "><FontAwesomeIcon icon={faClock} style={{color:"grey"}}/>  2 h ago</p></div>
+                <div className="col-6 d-flex justify-content-end">
+                <button class="btn-details" onClick={()=>setForm(true)}>APPLY</button>
+                </div>
               </div>
               </div>
                 }
                 { form&&
-                <div class="view-details3">
-                <p ><i class=" clock far fa-clock"></i>  2 h ago</p>
-                <form action="/action_page.php">
-                 <div class="form-group3">
-                   <label for="email" class="lab1">Email</label>
-                   <label for="num"  class="lab2">Years Of Experience</label>
-                   <input type="email" class="form-control inp1" id="email"  name="email"/>
-                   <input type="number" class="form-control inp2" id="num"  name="num"/>
-                   <br/>
-                   <label for="num3"  class="lab3">Mobile Number</label>
-                   <input type="number" class="form-control inp3" id="num3"  name="num3"/>
-                   <label for="files" class="lab4">Uploud CV</label>
-                   <div class="uploud-cv">
-                     <i class="i-uploud fas fa-cloud-upload-alt"></i>
-                     <br/>
-                     <span class="drag-drop">Drag & Drop files or <a href="#" class="browse-link">Browse</a></span>
-                     <h6 class="p-uploud">
+                <div class="view-details3 div1 m-3">
+                  <div class="dd-info row">
+                      <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
+                      <div className="col-8 p-0">
+                        <h2>{currentJob.title}</h2>
+                        <p>IT solution , {currentJob.location}</p>
+                      </div>
+                      <div class="info2 col-3 p-0 text-end"><h5>{currentJob.salary} per month</h5>
+                      <p class="pi"> <FontAwesomeIcon icon={faLocationDot} style={{color: "#bf9b30"}} /> On Site</p>
+                      </div>
+                  </div>
+                <form onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
+                 <div class="form-group3 row">
+                  <div className="col-9">
+                    <label for="email" class="lab1">Email</label>
+                    <input type="email" class="form-control inp1" id="email"  name="email"/>
+                  </div>
+                  <div className="col-3">
+                    <label for="num"  class="lab2">Years Of Experience</label>
+                    <input type="number" class="form-control inp2" id="num"  name="num"/>
+                  </div>
+                  <div className="col-6">
+                    <label for="num3"  class="lab3">Mobile Number</label>
+                    <input type="number" class="form-control inp3" id="num3"  name="num3"/>
+                  </div>
+                    <div className="col-8">
+                      <label for="files" class="lab4">Uploud CV</label>
+                      <div class="uploud-cv position-relative">
+                      <FontAwesomeIcon icon={faCloudArrowUp} className="my-3" style={{color: "#bf9b30",display:"block",fontSize:"70px",margin:"auto"}}/>
+                      <span class="cvdrag-drop">Drag & Drop files or <button onClick={onButtonClick} class="browse-link">Browse</button></span>
+                      <input ref={inputRef} type="file" style={{display:"none"}} multiple={false} onChange={handleChange} />
+                      <h6 class="p-uploud">
                        supported formates:JPEG,
                        PNG,GIF,MP4,PDF,PSD,Al,Word,PPT
-                     </h6>
-                   </div>
-                 </div>
-                 <button class="cancel">Cancel</button>
-                 <button class="submit">Submit</button>
+                      </h6>
+                      { dragActive && <div style={{position:"absolute",top:"0",left:"0",height:"100%",width:"100%"}} onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div> }
+                      {file&&<p>{file.name}</p>}
+                      </div>
+                      
+                    </div>
+                    <div className="col-12 mt-5 d-flex justify-content-end">
+                      <button class="cancel">Cancel</button>
+                      <button class="submit">Submit</button>
+                    </div>
+                  </div>
+                 
                </form>
                </div>
                 }
@@ -259,5 +333,6 @@ return(
           </div>
           </div>
     </div>
+    </>
 )
 }

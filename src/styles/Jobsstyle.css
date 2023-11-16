@@ -40,6 +40,8 @@
     color:var(--primary) !important;
   }
   body{
+      max-width: 100%;
+      overflow-x: hidden;
     font-family: Arial,Helvetica,sans-serif;
   }
   input[type=checkbox] {
@@ -54,12 +56,43 @@
   }
   .date,
   .jobLooking{
-    height: 120px;
-    width: 200px;
+    width: 400px;
+  }
+  .jobLooking h1,p{
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
   .searchBox{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  
+  .searchBox .icon{
+    color: var(--primary);
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .searchBox input{
     height: 40px;
-    width: 20vw;
+    border: none;
+    background-color: rgba(115, 115, 115, 0.5);
+    padding: 0 50px;
+    color: white;
+    border-radius: 5px 0px 0px 5px;
+  }
+  .searchBox input:focus{
+    outline: none;
+  }
+  .searchBox input::placeholder{
+    color:white;
+  }
+  .searchBox button{
+    height: 40px;
+    background-color: var(--primary);
+    padding: 0px 20px;
+    color: white;
+    border: none;
+    border-radius: 0px 5px 5px 0px;
   }
   .filter-side{
     line-height: 30px;
@@ -100,34 +133,27 @@
 .div1
 {
     background-color: rgba(0, 0, 0, 0.7);
-    padding: 35px;
+    padding: 25px 45px;
     color: white;
     border-radius: 5px;
 }
 
 
-.dd-info
-{
-    margin-right: 120px;
-    margin-top: -15px;
-}
+
 .spn
 {
     font-size: 35px;
     letter-spacing: 5px;
     color: red;
-    margin-top: -10px;
+    letter-spacing: 0cap;
 }
  .div1 h2 {
     font-size: 23px;
     color: white;
-    margin-left: 50px;
-    margin-top: 13px;
 }
 .dd-info p{
     font-size: 17px;
     color: grey;
-    margin-left: 50px;
 }  
 .info2 h5
 {
@@ -146,7 +172,7 @@
 .p-general
 {
     color: rgb(204, 199, 199);
-    margin-top: 30px;
+    text-align: justify;
 }
 .div1 .btn
 {
@@ -156,7 +182,8 @@
     border-radius: 5px;
     text-align: center;
     color:rgb(217, 212, 212);
-    margin-left: 7px;
+    margin-right: 7px;
+    margin-bottom: 30px;
 }
 .view-details
 {
@@ -176,7 +203,6 @@
     border-radius: 5px;
     color: white;
     border: none;
-    margin-left:490px;
     
 }
 .boxing-footer{
@@ -184,6 +210,19 @@
     height: 250px;
     background-color:black;
     border: 1px solid rgb(54, 52, 52);
+}
+.info-header p{
+  color:white;
+  font-weight: 100;
+  margin: 0;
+  padding: 0;
+  font-family: 'Cambria', 'Cochin', 'Georgia', 'Times', 'Times New Roman', 'serif';
+}
+.info-header span{
+  display: inline-block;
+  background-color: var(--primary);
+  width: 75px;
+  height: 1px;
 }
 /* media query section 1 */
 
@@ -425,50 +464,36 @@
     color: grey;
 }
 .lab1{
-    margin-right: 350px;
-    font-size: 19px;
     color: rgb(233, 230, 230);
 }
 .lab2{
-    margin-left: 10px;
     color: rgb(233, 230, 230);
 } 
-.inp1{
-    margin-left: 2px;
+.inp1,.inp2{
     border-radius: 5px;
    margin-top: 10px;
-   width: 390px;
-}
-.inp2
-{
-    margin-left: 20px;
-    width: 250px;
-    border-radius: 5px;
-    margin-top: 10px;
+   background-color: rgba(115, 115, 115, 0.5);
+   border: none;
 }
 .lab3{
     margin-top: 20px;
-    margin-right: 80%;
     color: rgb(233, 230, 230);
 }
 .inp3{
-    margin-left: 2px;
     border-radius: 5px;
+    background-color: rgba(115, 115, 115, 0.5);
    margin-top: 10px;
-   width: 270px;
-   margin-right: 400px;
+   border: none;
 }
 .lab4{
     margin-top: 20px;
-    font-size: 18px;
     color: rgb(255, 249, 249);
 }
 .uploud-cv{
-    width: 470px;
     height: 180px;
-    border: 3px dashed rgb(123, 123, 12);
+    border: 3px dashed var(--primary);
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .i-uploud{
     margin-top: 20px;
@@ -477,12 +502,14 @@
     color:rgba(211, 211, 19, 0.832) ;
 
 }
-.drag-drop{
+.cvdrag-drop{
     margin-top: 20px;
     font-size: 18px;
 }
 .browse-link{
-    color:rgb(211, 211, 19);
+    border: none;
+    background: none;
+    color:var(--primary);
 }
 .p-uploud{
     margin-top: 10px;
@@ -490,24 +517,23 @@
     font-size: 15px;
 }
 .cancel{
-    width: 140px;
-    height: 45px;
+    
     background-color: gray;
-    display: inline;
-    margin-top: 30px;
-    margin-left: 58%;
+    display: inline-block;
     color: rgb(240, 239, 239);
     border-radius: 5px;
     font-size: 20px;
+    padding: 5px 20px;
+    border: none;
 }
 .submit{
-    width: 140px;
-    height: 45px;
     border-radius: 5px;
     color: rgb(240, 239, 239);
-    background-color: rgb(211, 211, 19);
+    background-color: var(--primary);
     font-size: 20px;
     margin-left: 10px;
+    padding: 5px 20px;
+    border: none;
 }
 .boxing-footer3{
     width: 99%;
@@ -516,8 +542,14 @@
     border: 1px solid grey;
     margin-top: 20px;
 }
+.dd-info p{
+  line-height: 1em;
+}
+.dd-info h2{
+  line-height: 0.5em;
+}
  /****************** media query page32*************************/
-@media(max-width:576px )
+/* @media(max-width:576px )
 {
     .sec-jops3
     {
@@ -609,4 +641,4 @@
         
     }
     
-}
+} */
