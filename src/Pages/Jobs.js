@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import 'bootstrap/dist/css/bootstrap.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock, faCloudArrowUp, faLocationDot, faMagnifyingGlass, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
+import { faClock, faCloudArrowUp, faFilter, faLocationDot, faMagnifyingGlass, faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
 import '../styles/Jobsstyle.css'
 import { fontSize } from "@mui/system";
 import { Visibility } from "@mui/icons-material";
@@ -25,6 +25,7 @@ export default function Jobs(){
       var [form,setForm]=useState(false);
       var [search,setSearch]=useState("");
       var [clicked,setClicked]=useState(false);
+      var[menu,setMenu]=useState(false)
       var [file,setFile]=useState(null);
       var [currentJob,setCurrentJob]=useState({});
       var selectRef=useRef(null)
@@ -138,23 +139,26 @@ return(
       </div>
       </div>
     </div>
-    <div class="d-flex flex-row container mb-5 justify-content-between ">
-      <div class="jobLooking ">
+    <div class="d-flex container mb-5 justify-content-between head">
+      <div class="jobLooking col-12">
         <h1>Looking for a job ?</h1>
         <p>Here you can find your best match between 1000s of updated and available positions</p>
       </div>
-      <div class="searchBox flex-end">
+      <div class="searchBox justify-content-end">
         <span className="position-relative">
             <FontAwesomeIcon className="icon position-absolute" icon={faMagnifyingGlass} />
           <input placeholder="Search for a job" onChange={(e)=>{setSearch(e.target.value);setClicked(false)}}></input>
           <button type="button" onClick={()=>setClicked(true)}>SEARCH</button>
+          <button type="button" id="menu" onClick={()=>setMenu(!menu)}>
+            <FontAwesomeIcon icon={faFilter} />
+          </button>
         </span>
       </div>
     </div>
        
             
-        <div class="container filter-side d-flex bd-highlight ">
-          <div>
+        <div class="container filter-side d-flex bd-highlight p-0">
+          <div className={menu?"filter":"filter display-none"}>
             {/* //className="position-absolute" */}
             <aside class="job-filter pb-5">
               <div class="filter-head d-flex bg-black p-2 align-items-baseline rounded">
@@ -222,20 +226,22 @@ return(
             </div>
           </div>
             
-            <div class="pl-3 mx-3 flex-grow-1">
+            <div class="pl-3 flex-grow-1">
             { !details&&
             jobData.map((job,index)=>(
               <div class="div1 m-3"> 
                 <div class="dd-info row">
                 <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
-                <div className="col-8 p-0">
+                <div className="col-md-8 col-sm-12 p-0">
                 <h2>{job.title}</h2>
                 <p>IT solution , {job.location}</p>
                 </div>
-                <div class="info2 col-3 p-0 text-end"><h5>{job.salary} per month</h5>
-                <p class="pi"> <FontAwesomeIcon icon={faLocationDot} style={{color: "#bf9b30"}} /> On Site</p>
+                <div class="info2 col-md-3 p-0 text-md-end"><h5>{job.salary} per month</h5>
+                <p id="pi"> <FontAwesomeIcon icon={faLocationDot} style={{color: "#bf9b30"}} /> On Site</p>
                 </div>
               </div>
+              <h1>Balqees Hamdi Sabir</h1>
+              <p>Computer science, international islamic university</p>
               
                 <p class="p-general">{job.data}</p>
                 <button class="btn">React JS</button>
@@ -243,8 +249,8 @@ return(
 
               <div class="view-details row d-flex m-0 mt-5  p-0">
                 <div class=" col-6"><p class="p-details "><FontAwesomeIcon icon={faClock} style={{color:"grey"}}/>  2 h ago</p></div>
-                <div className="col-6 d-flex justify-content-end">
-                <button class="btn-details" onClick={()=>handleDetails(job.id)}>VIEW DETAiLS</button>
+                <div className="col-6 d-flex justify-content-end m-0 p-0">
+                <button class="btn-details" id="detail" onClick={()=>handleDetails(job.id)}>VIEW DETAILS</button>
                 </div>
               </div>
               </div>
@@ -253,15 +259,17 @@ return(
                 <div class="div1 m-3"> 
                 <div class="dd-info row">
                 <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
-                <div className="col-8 p-0">
+                <div className="col-md-8 col-sm-12 p-0">
                 <h2>{currentJob.title}</h2>
                 <p>IT solution , {currentJob.location}</p>
                 </div>
-                <div class="info2 col-3 p-0 text-end"><h5>{currentJob.salary} per month</h5>
-                <p class="pi"> <FontAwesomeIcon icon={faLocationDot} style={{color: "#bf9b30"}} /> On Site</p>
+                <div class="info2 col-md-3 p-0 text-md-end"><h5>{currentJob.salary} per month</h5>
+                <p id="pi"> <FontAwesomeIcon icon={faLocationDot} style={{color: "#bf9b30"}} /> On Site</p>
                 </div>
               </div>
-              
+              <h1>Balqees Hamdi Sabir</h1>
+              <p>Computer science, international islamic university</p>
+
                 <p class="p-general">{currentJob.data}</p>
                 <button class="btn">React JS</button>
                 <button class="btn">Develpment</button>
@@ -280,32 +288,34 @@ return(
               </div>
                 }
                 { form&&
-                <div class="view-details3 div1 m-3">
+                <div class="view-details3 div1 m-0">
                   <div class="dd-info row">
-                      <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
-                      <div className="col-8 p-0">
-                        <h2>{currentJob.title}</h2>
-                        <p>IT solution , {currentJob.location}</p>
-                      </div>
-                      <div class="info2 col-3 p-0 text-end"><h5>{currentJob.salary} per month</h5>
-                      <p class="pi"> <FontAwesomeIcon icon={faLocationDot} style={{color: "#bf9b30"}} /> On Site</p>
-                      </div>
-                  </div>
+                <div class="spn col-1 p-0 d-flex justify-content-center"><span style={{fontSize:"larger",fontWeight:"900"}}>≡</span>IT</div>
+                <div className="col-md-8 col-sm-12 p-0">
+                <h2>{currentJob.title}</h2>
+                <p>IT solution , {currentJob.location}</p>
+                </div>
+                <div class="info2 col-md-3 p-0 text-md-end"><h5>{currentJob.salary} per month</h5>
+                <p id="pi"> <FontAwesomeIcon icon={faLocationDot} style={{color: "#bf9b30"}} /> On Site</p>
+                </div>
+              </div>
+              <h1>Balqees Hamdi Sabir</h1>
+              <p>Computer science, international islamic university</p>
                 <form onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
                  <div class="form-group3 row">
-                  <div className="col-9">
+                  <div className="col-md-9">
                     <label for="email" class="lab1">Email</label>
                     <input type="email" class="form-control inp1" id="email"  name="email"/>
                   </div>
-                  <div className="col-3">
+                  <div className="col-md-3">
                     <label for="num"  class="lab2">Years Of Experience</label>
                     <input type="number" class="form-control inp2" id="num"  name="num"/>
                   </div>
-                  <div className="col-6">
+                  <div className="col-md-6">
                     <label for="num3"  class="lab3">Mobile Number</label>
                     <input type="number" class="form-control inp3" id="num3"  name="num3"/>
                   </div>
-                    <div className="col-8">
+                    <div className="col-md-8">
                       <label for="files" class="lab4">Uploud CV</label>
                       <div class="uploud-cv position-relative">
                       <FontAwesomeIcon icon={faCloudArrowUp} className="my-3" style={{color: "#bf9b30",display:"block",fontSize:"70px",margin:"auto"}}/>
